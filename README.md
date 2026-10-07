@@ -18,6 +18,10 @@ The main contributor to this project is SuperGrok.
 - `game.ts` — the running game.
 - `feature1.ts` — the pure transitions, `press` and `passTick`.
 - `feature1fp.ts` — the RxJS composition. Key and tick streams are folded onto the seed game with `scan`.
+- `keys.ts` — arrow key events as `Keypress` values.
+- `display.ts` — the board text. The top-left cell is `left`, `right`, `up`, or `down`.
+- `app.ts` — subscribes to arrow keys and paints the board.
+- `index.html` — open this page and press an arrow key.
 
 ## Movement rules
 
@@ -26,3 +30,4 @@ The main contributor to this project is SuperGrok.
 - The last accepted keypress before a tick wins.
 - A keypress that reverses the effective direction is rejected.
 - Pressing the effective direction leaves pending empty.
+- The latest arrow key is shown in the top-left cell, in lowercase.

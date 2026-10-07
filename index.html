@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Snake — arrow key in the top-left cell</title>
+    <style>
+      body { margin: 24px; font: 16px/1.2 sans-serif; background: #111; color: #eee; }
+      #board {
+        display: grid;
+        grid-template-columns: repeat(10, 48px);
+        grid-template-rows: repeat(10, 48px);
+        width: max-content;
+        border: 1px solid #444;
+      }
+      .cell {
+        display: grid;
+        place-items: center;
+        border: 1px solid #333;
+        text-transform: lowercase;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Press an arrow key. The top-left cell shows left, right, up, or down.</p>
+    <div id="board"></div>
+    <script type="module">
+      import { fromEvent } from "https://esm.sh/rxjs@7.8.1";
+      import { filter, map, scan, startWith, tap } from "https://esm.sh/rxjs@7.8.1";
+
+      const arrows = { ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down" };
+      const root = document.querySelector("#board");
+
+      function paint(label) {
+        root.replaceChildren();
+        for (let y = 0; y < 10; y++) {
+          for (let x = 0; x < 10; x++) {
+            const cell = document.createElement("div");
+            cell.className = "cell";
+            cell.textContent = x === 0 && y === 0 ? label : "";
+            root.append(cell);
+          }
+        }
+      }
+
+      paint("");
+      fromEvent(document, "keydown").pipe(
+        filter((event) => event.key in arrows),
+        tap((event) => event.preventDefault()),
+        map((event) => arrows[event.key]),
+        scan((_, label) => label, ""),
+        startWith(""),
+      ).subscribe(paint);
+    </script>
+  </body>
+</html>
