@@ -1,6 +1,6 @@
 # rxjs-snake-grok
 
-A Snake game designed and written in functional TypeScript. Values instead of classes. A keypress never moves the snake. A tick is the only event that moves it.
+A Snake game designed and written in functional TypeScript with RxJS. Values instead of classes. A keypress never moves the snake. A tick is the only event that moves it.
 
 The main contributor to this project is SuperGrok.
 
@@ -16,7 +16,8 @@ The main contributor to this project is SuperGrok.
 - `keypress.ts` — the arrow key pressed.
 - `tick.ts` — count and interval.
 - `game.ts` — the running game.
-- `feature1.ts` — `press` and `passTick`.
+- `feature1.ts` — the pure transitions, `press` and `passTick`.
+- `feature1fp.ts` — the RxJS composition. Key and tick streams are folded onto the seed game with `scan`.
 
 ## Movement rules
 
